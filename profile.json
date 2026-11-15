@@ -1,0 +1,131 @@
+{
+  "name": "Solee Im",
+  "role": "[Current position]",
+  "affiliation": "[Department / Institution]",
+  "email": "[Email address]",
+  "about": "My publications explore speech and language technologies, including automatic speech recognition error correction, robust dialogue state tracking, and speech recognition and synthesis for dysarthric speakers.",
+  "interests": [
+    "Automatic speech recognition",
+    "Robust spoken dialogue systems",
+    "Speech technology for dysarthric speakers"
+  ],
+  "links": {
+    "Google Scholar": "https://scholar.google.com/citations?user=uIGLkUIAAAAJ&hl=en",
+    "ORCID": "https://orcid.org/0009-0008-7549-2894",
+    "DBLP": "https://dblp.org/pid/387/3897"
+  },
+  "publications": [
+    {
+      "title": "DeRAGEC: Denoising Named Entity Candidates with Synthetic Rationale for ASR Error Correction",
+      "authors": "Solee Im, Wonjun Lee, JinMyeong An, Yunsu Kim, Jungseul Ok, Gary Lee",
+      "venue": "Findings of ACL",
+      "year": "2025",
+      "pages": "15181–15193",
+      "url": "https://aclanthology.org/2025.findings-acl.786/",
+      "tag": "ASR ERROR CORRECTION",
+      "image": "assets/deragec.png",
+      "image_alt": "Figure 1: RAGEC and DeRAGEC pipelines for named entity correction.",
+      "image_source": "https://aclanthology.org/2025.findings-acl.786.pdf",
+      "image_credit": "Figure 1 from the linked paper; cropped from PDF page 2."
+    },
+    {
+      "title": "Speak & Spell: LLM-Driven Controllable Phonetic Error Augmentation for Robust Dialogue State Tracking",
+      "authors": "Jihyun Lee, Solee Im, Wonjun Lee, Gary Lee",
+      "venue": "IJCNLP-AACL (Short Papers)",
+      "year": "2025",
+      "pages": "99–111",
+      "url": "https://aclanthology.org/2025.ijcnlp-short.9/",
+      "tag": "SPOKEN DIALOGUE",
+      "image": "assets/speak-spell.png",
+      "image_alt": "Figure 1: Two-step EPA augmentation of utterances and keywords.",
+      "image_source": "https://aclanthology.org/2025.ijcnlp-short.9.pdf",
+      "image_credit": "Figure 1 from the linked paper; cropped from PDF page 2."
+    },
+    {
+      "title": "Facilitating Personalized TTS for Dysarthric Speakers Using Knowledge Anchoring and Curriculum Learning",
+      "authors": "Yejin Jeon, Solee Im, Youngjae Kim, Gary Geunbae Lee",
+      "venue": "Interspeech",
+      "year": "2025",
+      "pages": "",
+      "url": "https://doi.org/10.21437/Interspeech.2025-596",
+      "tag": "SPEECH SYNTHESIS",
+      "image": "assets/tts.png",
+      "image_alt": "Figure 2: Teacher-student training and inference for personalized dysarthric TTS.",
+      "image_source": "https://www.isca-archive.org/interspeech_2025/jeon25_interspeech.pdf",
+      "image_credit": "Figure 2 from the linked paper; cropped from PDF page 2."
+    },
+    {
+      "title": "DyPCL: Dynamic Phoneme-level Contrastive Learning for Dysarthric Speech Recognition",
+      "authors": "Wonjun Lee, Solee Im, Heejin Do, Yunsu Kim, Jungseul Ok, Gary Lee",
+      "venue": "NAACL (Long Papers)",
+      "year": "2025",
+      "pages": "4701–4712",
+      "url": "https://aclanthology.org/2025.naacl-long.240/",
+      "tag": "SPEECH RECOGNITION",
+      "image": "assets/dypcl.png",
+      "image_alt": "Figure 1: Phoneme-level contrastive learning with anchor, positive, and negative speech segments.",
+      "image_source": "https://aclanthology.org/2025.naacl-long.240.pdf",
+      "image_credit": "Figure 1 from the linked paper; cropped from PDF page 2."
+    }
+  ],
+  "education": [
+    {
+      "title": "[Degree and field of study]",
+      "detail": "[University · Advisor, if applicable]",
+      "dates": "[YYYY – YYYY]"
+    }
+  ],
+  "experience": [
+    {
+      "title": "[Position / Research role]",
+      "detail": "[Organization · Brief description of your work]",
+      "dates": "[YYYY – YYYY]"
+    }
+  ],
+  "awards": [
+    {
+      "title": "[Award or fellowship]",
+      "detail": "[Awarding organization]",
+      "dates": "[YYYY]"
+    }
+  ],
+  "service": [
+    {
+      "title": "[Reviewing / Teaching / Academic service]",
+      "detail": "[Venue, course, or organization]",
+      "dates": "[YYYY]"
+    }
+  ],
+  "under_review": [
+    {
+      "title": "When Knowledge Goes Stale: Evaluating and Repairing Externalized Knowledge in GUI Agents under Environment Drift",
+      "authors": "Jinmyeong An*, Solee Im*, Seonjeong Hwang",
+      "venue": "NAACL 2027",
+      "status": "Under review",
+      "image": "",
+      "image_alt": ""
+    },
+    {
+      "title": "Wake Words as Pronunciation References: Balancing Everyday Usability and Personalized Recognition of Romanized Foreign Name",
+      "authors": "Yeonsu Kim*, Solee Im*, Jihyun Lee, Wonjun Lee",
+      "venue": "IMWUT 2027",
+      "status": "Under review",
+      "image": "",
+      "image_alt": ""
+    }
+  ],
+  "posters": [
+    {
+      "title": "Wake2Adapt: Reframing Wake Words as In-Situ Labeled Speech for Personalized Voice Assistants",
+      "authors": "Yeonsu Kim, Solee Im*, Jihyun Lee, Wonjun Lee",
+      "venue": "UIST 2026 Adjunct Proceedings",
+      "status": "Poster",
+      "url": "https://doi.org/10.1145/3830397.3841824",
+      "image": "assets/wake2adapt.jpg",
+      "image_alt": "Figure 1: Conventional wake-word activation compared with Wake2Adapt pronunciation-aware recognition.",
+      "image_source": "https://dl.acm.org/doi/10.1145/3830397.3841824",
+      "image_credit": "Figure 1, Yeonsu Kim, Solee Im, Jihyun Lee, Wonjun Lee (2026). CC BY 4.0; resized for display.",
+      "image_license": "https://creativecommons.org/licenses/by/4.0/"
+    }
+  ]
+}

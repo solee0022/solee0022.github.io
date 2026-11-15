@@ -1,0 +1,23 @@
+Representative figures (15 November 2026)
+Extracted from published papers; not AI-generated.
+PDF crops omit surrounding body text and captions; diagrams are otherwise unchanged.
+
+DeRAGEC: Denoising Named Entity Candidates with Synthetic Rationale for ASR Error Correction
+Figure 1 from the linked paper; cropped from PDF page 2.
+https://aclanthology.org/2025.findings-acl.786.pdf
+
+Speak & Spell: LLM-Driven Controllable Phonetic Error Augmentation for Robust Dialogue State Tracking
+Figure 1 from the linked paper; cropped from PDF page 2.
+https://aclanthology.org/2025.ijcnlp-short.9.pdf
+
+Facilitating Personalized TTS for Dysarthric Speakers Using Knowledge Anchoring and Curriculum Learning
+Figure 2 from the linked paper; cropped from PDF page 2.
+https://www.isca-archive.org/interspeech_2025/jeon25_interspeech.pdf
+
+DyPCL: Dynamic Phoneme-level Contrastive Learning for Dysarthric Speech Recognition
+Figure 1 from the linked paper; cropped from PDF page 2.
+https://aclanthology.org/2025.naacl-long.240.pdf
+
+Wake2Adapt: Reframing Wake Words as In-Situ Labeled Speech for Personalized Voice Assistants
+Figure 1, Yeonsu Kim, Solee Im, Jihyun Lee, Wonjun Lee (2026). CC BY 4.0; resized for display.
+https://dl.acm.org/doi/10.1145/3830397.3841824

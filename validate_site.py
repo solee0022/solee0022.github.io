@@ -46,7 +46,7 @@ assert (dist / 'index.html').is_file()
 assert (dist / '.nojekyll').is_file()
 assert (dist / 'Solee_Im_CV.pdf').read_bytes().startswith(b'%PDF')
 profile = json.loads((root / 'profile.json').read_text())
-for item in profile['publications'] + profile['posters']:
+for item in profile['publications'] + profile.get('posters', []):
     if item.get('image') and not (dist / item['image']).is_file():
         errors.append(f'Missing publication figure: {item["image"]}')
 if errors:

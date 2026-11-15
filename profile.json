@@ -16,8 +16,23 @@
   },
   "publications": [
     {
+      "title": "Wake2Adapt: Reframing Wake Words as In-Situ Labeled Speech for Personalized Voice Assistants",
+      "authors": "Yeonsu Kim*, Solee Im*, Jihyun Lee, Wonjun Lee",
+      "venue": "UIST Adjunct Proceedings",
+      "status": "Poster",
+      "url": "https://doi.org/10.1145/3830397.3841824",
+      "image": "assets/wake2adapt.jpg",
+      "image_alt": "Figure 1: Conventional wake-word activation compared with Wake2Adapt pronunciation-aware recognition.",
+      "image_source": "https://dl.acm.org/doi/10.1145/3830397.3841824",
+      "image_credit": "Figure 1, Yeonsu Kim, Solee Im, Jihyun Lee, Wonjun Lee (2026). CC BY 4.0; resized for display.",
+      "image_license": "https://creativecommons.org/licenses/by/4.0/",
+      "year": "2026",
+      "tag": "POSTER",
+      "pages": ""
+    },
+    {
       "title": "DeRAGEC: Denoising Named Entity Candidates with Synthetic Rationale for ASR Error Correction",
-      "authors": "Solee Im, Wonjun Lee, JinMyeong An, Yunsu Kim, Jungseul Ok, Gary Lee",
+      "authors": "Solee Im*, Wonjun Lee*, JinMyeong An, Yunsu Kim, Jungseul Ok, Gary Lee",
       "venue": "Findings of ACL",
       "year": "2025",
       "pages": "15181–15193",
@@ -56,7 +71,7 @@
     },
     {
       "title": "DyPCL: Dynamic Phoneme-level Contrastive Learning for Dysarthric Speech Recognition",
-      "authors": "Wonjun Lee, Solee Im, Heejin Do, Yunsu Kim, Jungseul Ok, Gary Lee",
+      "authors": "Wonjun Lee*, Solee Im*, Heejin Do, Yunsu Kim, Jungseul Ok, Gary Lee",
       "venue": "NAACL (Long Papers)",
       "year": "2025",
       "pages": "4701–4712",
@@ -112,20 +127,6 @@
       "status": "Under review",
       "image": "",
       "image_alt": ""
-    }
-  ],
-  "posters": [
-    {
-      "title": "Wake2Adapt: Reframing Wake Words as In-Situ Labeled Speech for Personalized Voice Assistants",
-      "authors": "Yeonsu Kim, Solee Im*, Jihyun Lee, Wonjun Lee",
-      "venue": "UIST 2026 Adjunct Proceedings",
-      "status": "Poster",
-      "url": "https://doi.org/10.1145/3830397.3841824",
-      "image": "assets/wake2adapt.jpg",
-      "image_alt": "Figure 1: Conventional wake-word activation compared with Wake2Adapt pronunciation-aware recognition.",
-      "image_source": "https://dl.acm.org/doi/10.1145/3830397.3841824",
-      "image_credit": "Figure 1, Yeonsu Kim, Solee Im, Jihyun Lee, Wonjun Lee (2026). CC BY 4.0; resized for display.",
-      "image_license": "https://creativecommons.org/licenses/by/4.0/"
     }
   ]
 }

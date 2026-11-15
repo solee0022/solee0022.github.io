@@ -12,14 +12,15 @@ def render(d):
     def paper(p):
         title=e(p['title']); authors=e(p['authors']).replace('Solee Im','<strong>Solee Im</strong>')
         title=f'<a href="{e(p["url"])}">{title}</a>' if p.get('url') else title
-        status=p.get('status',p.get('year',''))
+        status=p.get('year', p.get('status',''))
+        if p.get('status') == 'Poster': status += ' · Poster'
         venue=e(p['venue'])
         action=f'<a class="paper-link" href="{e(p["url"])}">Paper <span aria-hidden="true">↗</span></a>' if p.get('url') else ''
         return f'<article class="paper-row">{figure(p)}<div class="paper-content"><div class="paper-meta"><span class="badge">{e(status)}</span><span>{venue}</span></div><h4>{title}</h4><p class="authors">{authors}</p>{action}</div></article>'
 
     groups=''
-    for key,title in [('under_review','Manuscripts Under Review'),('publications','Conference Publications'),('posters','Posters')]:
-        note='<p class="contribution">* Equal contribution (co-first authors).</p>' if key=='under_review' else ''
+    for key,title in [('under_review','Manuscripts Under Review'),('publications','Conference Publications')]:
+        note='<p class="contribution">* Equal contribution (co-first authors).</p>' if any('*' in p['authors'] for p in d[key]) else ''
         groups+=f'<section class="paper-group" aria-labelledby="{key}-heading"><h3 id="{key}-heading">{title}</h3>'+''.join(paper(p) for p in d[key])+note+'</section>'
     details=''
     for key,title in [('education','Education'),('experience','Experience'),('awards','Honors & Awards'),('service','Academic Service')]:

@@ -18,7 +18,7 @@ def papers():
     result = []
     for p in D['publications']:
         authors = e(p['authors']).replace('Solee Im', '<strong>Solee Im</strong>')
-        result.append(f'''<article class="paper"><div class="paper-meta"><b>{e(p['year'])}</b><span>{e(p['tag'])}</span></div><h3><a href="{e(p['url'])}">{e(p['title'])}</a></h3><p class="authors">{authors}</p><p class="venue">{e(p['venue'])}, {e(p['year'])}</p><a class="paper-link" href="{e(p['url'])}">Paper & publication details ↗</a></article>''')
+        result.append(f'''<article class="paper"><div class="paper-meta"><b>{e(p['year'])}</b><span>{e(p['tag'])}</span></div><h3><a href="{e(p['url'])}">{e(p['title'])}</a></h3><p class="authors">{authors}</p><p class="venue">{e(p['venue'])}, {e(p['year'])}{' · Poster' if p.get('status') == 'Poster' else ''}</p><a class="paper-link" href="{e(p['url'])}">Paper & publication details ↗</a></article>''')
     return '\n'.join(result)
 
 def entries(key):
@@ -29,7 +29,7 @@ def additional_section(key, title):
     for p in D.get(key, []):
         authors = e(p['authors']).replace('Solee Im', '<strong>Solee Im</strong>')
         link = f'<a class="paper-link" href="{e(p["url"])}">Publication details ↗</a>' if p.get('url') else ''
-        items.append(f'<article class="paper"><div class="paper-meta"><b>{e(p["status"])}</b><span>{e(p["venue"])}</span></div><h3>{e(p["title"])}</h3><p class="authors">{authors}</p>{link}</article>')
+        items.append(f'<article class="paper"><div class="paper-meta"><b>{e(p.get("year", p["venue"].split()[-1]))}</b><span>{e(p.get("tag", ""))}</span></div><h3>{e(p["title"])}</h3><p class="authors">{authors}</p><p class="venue">{e(p["venue"])} · {e(p["status"])}</p>{link}</article>')
     return '<section><div class="section-head"><h2>'+title+'</h2></div>'+''.join(items)+'</section>'
 
 review_html = additional_section('under_review', 'Manuscripts Under Review').replace('</section>', '<p class="note">* Equal contribution (co-first authors).</p></section>')

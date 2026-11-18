@@ -7,7 +7,9 @@ def render(d):
     def figure(p):
         if p.get('image'):
             license_link = f' · <a href="{e(p["image_license"])}">CC BY 4.0</a>' if p.get('image_license') else ''
-            credit = f'<details class="figure-credit"><summary>Figure source</summary><p>{e(p.get("image_credit", ""))} <a href="{e(p.get("image_source", p.get("url", "")))}">Original paper ↗</a>{license_link}</p></details>'
+            source = p.get('image_source') or p.get('url')
+            source_link = f' <a href="{e(source)}">Original paper ↗</a>' if source else ''
+            credit = f'<details class="figure-credit"><summary>Figure source</summary><p>{e(p.get("image_credit", ""))}{source_link}{license_link}</p></details>'
             return f'<figure class="paper-figure filled"><a class="figure-zoom" href="{e(p["image"])}" target="_blank" rel="noopener" aria-label="View full-size figure for {e(p["title"])}"><img src="{e(p["image"])}" alt="{e(p.get("image_alt") or p["title"])}" loading="lazy"><span class="zoom-hint" aria-hidden="true">↗</span></a><figcaption>{credit}</figcaption></figure>'
         return ''
 

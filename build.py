@@ -92,7 +92,7 @@ for key,label in [('awards','Honors and Awards')]:
     if items:
         story.append(para(label,'section'))
         for x in items:
-            story.append(para(e(x['title'])+' - '+e(x['detail'])+' ('+e(x['dates'])+')'))
+            story.append(para(e(x['title'])+' - '+e(x['detail'])+(' ('+e(x['dates'])+')' if x.get('dates') else '')))
 story += [para('Research Interests','section'),para(e('; '.join(D['interests']))+'.')]
 story.append(PageBreak())
 story.append(para('Conference Publications','section'))
@@ -111,7 +111,7 @@ items=[x for x in D['service'] if '[' not in x['title']]
 if items:
     story.append(para('Academic Service','section'))
     for x in items:
-        story.append(para(e(x['title'])+' - '+e(x['detail'])+' ('+e(x['dates'])+')'))
+        story.append(para(e(x['title'])+' - '+e(x['detail'])+(' ('+e(x['dates'])+')' if x.get('dates') else '')))
 def footer(c,doc):
     c.setFont('Times-Roman',10)
     c.drawCentredString(letter[0]/2,26,str(doc.page))

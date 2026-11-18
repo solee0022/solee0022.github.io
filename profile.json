@@ -117,16 +117,18 @@
       "authors": "Jinmyeong An*, Solee Im*, Seonjeong Hwang",
       "venue": "NAACL 2027",
       "status": "Under review",
-      "image": "",
-      "image_alt": ""
+      "image": "assets/knowledge-drift.png",
+      "image_alt": "WEBARENA-DRIFT pipeline: drift construction, application, and evaluation of memory staleness and utility.",
+      "image_credit": "Figure 1: WEBARENA-DRIFT pipeline. From the author-provided manuscript."
     },
     {
       "title": "Wake Words as Pronunciation References: Balancing Everyday Usability and Personalized Recognition of Romanized Foreign Name",
       "authors": "Yeonsu Kim*, Solee Im*, Jihyun Lee, Wonjun Lee",
       "venue": "IMWUT 2027",
       "status": "Under review",
-      "image": "",
-      "image_alt": ""
+      "image": "assets/wake-words-imwut.png",
+      "image_alt": "Comparison of a conventional voice assistant and Wake2Adapt using a wake-word reference for foreign-name recognition.",
+      "image_credit": "Figure 1: Wake2Adapt concept. From the author-provided manuscript."
     }
   ],
   "cv": {
@@ -166,6 +168,13 @@
         "title": "cum laude",
         "detail": "Sookmyung Women’s University",
         "dates": "Feb. 2022"
+      }
+    ],
+    "service": [
+      {
+        "title": "Teaching Assistant",
+        "detail": "Computational Mathematics",
+        "dates": ""
       }
     ]
   }

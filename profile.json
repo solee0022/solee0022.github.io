@@ -46,7 +46,7 @@
     {
       "title": "Speak & Spell: LLM-Driven Controllable Phonetic Error Augmentation for Robust Dialogue State Tracking",
       "authors": "Jihyun Lee, Solee Im, Wonjun Lee, Gary Lee",
-      "venue": "IJCNLP-AACL (Short Papers)",
+      "venue": "IJCNLP-AACL",
       "year": "2025",
       "pages": "99–111",
       "url": "https://aclanthology.org/2025.ijcnlp-short.9/",
@@ -72,7 +72,7 @@
     {
       "title": "DyPCL: Dynamic Phoneme-level Contrastive Learning for Dysarthric Speech Recognition",
       "authors": "Wonjun Lee*, Solee Im*, Heejin Do, Yunsu Kim, Jungseul Ok, Gary Lee",
-      "venue": "NAACL (Long Papers)",
+      "venue": "NAACL",
       "year": "2025",
       "pages": "4701–4712",
       "url": "https://aclanthology.org/2025.naacl-long.240/",

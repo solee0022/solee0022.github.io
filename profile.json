@@ -3,7 +3,7 @@
   "role": "[Current position]",
   "affiliation": "[Department / Institution]",
   "email": "[Email address]",
-  "about": "My research goal is to build a personalized multimodal agent with long-term memory that learns about an individual through years of interaction and adapts its assistance to their needs and preferences. Such an agent must turn accumulated speech, language, visual information, and behavioral observations into memories that stay useful across tasks and over time.\n\nI am especially interested in two questions. First, how should multimodal experiences be represented and stored? Second, how should those memories be curated and structured for the task at hand?\n\nMy research in speech representation learning, external knowledge use, and memory management, together with my industry experience training speech language models, has shaped how I approach these questions.",
+  "about": "I aim to build personalized multimodal agents with long-term memory that learn from years of interaction and adapt to individual needs and preferences. I focus on two questions: how should multimodal experiences be represented and stored, and how should those memories be curated and structured for each task?",
   "interests": [
     "Automatic speech recognition",
     "Robust spoken dialogue systems",
@@ -178,7 +178,7 @@
       }
     ]
   },
-  "academic_bio": "I received my master’s degree from the Graduate School of Artificial Intelligence at Pohang University of Science and Technology (POSTECH), where I was advised by Prof. Gary Geunbae Lee, Prof. Jungseul Ok, and Prof. Yunsu Kim.",
+  "academic_bio": "I received my master’s degree in Artificial Intelligence from POSTECH, advised by Prof. Gary Geunbae Lee, Prof. Jungseul Ok, and Prof. Yunsu Kim. I hold a B.S. in Media and Economics (double major) from Sookmyung Women’s University.",
   "advisors": [
     {
       "name": "Jungseul Ok",

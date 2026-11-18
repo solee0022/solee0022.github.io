@@ -68,6 +68,8 @@ def render(d):
             'LinkedIn': '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 10v7M7 7v.01M11 17v-7m0 3a3 3 0 0 1 6 0v4"/>',
         }
         return '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0">'+paths[kind]+'</svg>'
+    d['email'] = 'imsol2277@gmail.com'
+    d['location'] = 'Seoul, South Korea'
     row_style = 'display:flex;align-items:center;gap:10px'
     social = '<div style="'+row_style+';color:var(--muted)">'+contact_icon('location')+e(d.get('location', 'South Korea'))+'</div>'
     if d.get('email') and '[' not in d['email']:

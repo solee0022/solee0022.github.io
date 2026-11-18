@@ -5,6 +5,7 @@ def render(d):
     d = {**d, **d.get('cv', {})}
     d['links'] = {k: v for k, v in d['links'].items() if k not in ('DBLP', 'ORCID')}
     d['links']['GitHub'] = 'https://github.com/solee0022'
+    d['links']['LinkedIn'] = 'https://www.linkedin.com/in/solee-im-414614225/'
     def figure(p):
         if p.get('image'):
             license_link = f' · <a href="{e(p["image_license"])}">CC BY 4.0</a>' if p.get('image_license') else ''

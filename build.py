@@ -82,7 +82,7 @@ contact += ' &nbsp; | &nbsp; '+' &nbsp; | &nbsp; '.join(f'<link href="{e(u)}">{e
 story += [para(contact), Spacer(1,10), para('Employment','section')]
 for x in D['experience']:
     role, _, org = x['title'].partition(' · ')
-    story.append(KeepTogether([row('<b>'+e(org or role)+'</b>', e(x['dates'])), para('<i>'+e(role)+'</i>'), para(detail_text(x['detail'])), Spacer(1,12)]))
+    story.append(KeepTogether([row('<b>'+e(org or role)+'</b> @ South Korea', e(x['dates'])), para('<i>'+e(role)+'</i>'), para(detail_text(x['detail'])), Spacer(1,12)]))
 story.append(para('Education','section'))
 for x in D['education']:
     story.append(KeepTogether([row('<b>'+e(x['title'])+'</b>',e(x['dates'])),para(detail_text(x['detail'])),Spacer(1,12)]))

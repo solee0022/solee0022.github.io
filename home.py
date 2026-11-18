@@ -39,20 +39,18 @@ def render(d):
     publication_news = []
     for publication in d['publications']:
         venue = 'UIST' if publication.get('status') == 'Poster' else publication['venue']
-        suffix = ' as a poster' if publication.get('status') == 'Poster' else ''
         publication_news.append({
             'date': publication['year'],
             'year': publication['year'],
-            'title': publication['title'].split(':', 1)[0],
             'url': publication['url'],
-            'text': ' was accepted to '+venue+' '+publication['year']+suffix+'.',
+            'text': ('One poster accepted at ' if publication.get('status') == 'Poster' else 'One paper accepted at ')+venue+' '+publication['year'],
         })
     news_items = sorted(news_items + publication_news, key=lambda item: item.get('year', item['date'][-4:]), reverse=True)
     news_rows = ''
     for item in news_items:
         content = e(item['text'])
         if item.get('url'):
-            content = '<span aria-hidden="true">📄</span> <a href="'+e(item['url'])+'">'+e(item['title'])+'</a>'+content
+            content = '<a href="'+e(item['url'])+'">'+content+'</a> <span aria-hidden="true">📄</span>'
         news_rows += '<li style="display:flex;gap:1.25rem;align-items:baseline;margin-bottom:.75rem;flex-wrap:wrap"><span class="entry-date" style="min-width:6rem">'+e(item['date'])+'</span><span style="flex:1;min-width:14rem">'+content+'</span></li>'
     news_html = '<section id="news" class="detail-section"><h2>News</h2><ul style="list-style:none;padding:0">'+news_rows+'</ul></section>' if news_rows else ''
     news_nav = '<a href="#news">News</a>' if news_rows else ''

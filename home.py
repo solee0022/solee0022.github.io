@@ -50,7 +50,7 @@ def render(d):
     for item in news_items:
         content = e(item['text'])
         if item.get('url'):
-            content = '<a href="'+e(item['url'])+'">'+content+'</a> <span aria-hidden="true">📄</span>'
+            content += ' <span aria-hidden="true">📄</span>'
         news_rows += '<li style="display:flex;gap:1.25rem;align-items:baseline;margin-bottom:.75rem;flex-wrap:wrap"><span class="entry-date" style="min-width:6rem">'+e(item['date'])+'</span><span style="flex:1;min-width:14rem">'+content+'</span></li>'
     news_html = '<section id="news" class="detail-section"><h2>News</h2><ul style="list-style:none;padding:0">'+news_rows+'</ul></section>' if news_rows else ''
     news_nav = '<a href="#news">News</a>' if news_rows else ''

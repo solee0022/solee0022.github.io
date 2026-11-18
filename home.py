@@ -30,22 +30,6 @@ def render(d):
         note='<p class="contribution">* Equal contribution (co-first authors).</p>' if any('*' in p['authors'] for p in d[key]) else ''
         groups+=f'<section class="paper-group" aria-labelledby="{key}-heading"><h3 id="{key}-heading">{title}</h3>'+''.join(paper(p) for p in d[key])+note+'</section>'
     details=''
-    for key,title in [('awards','Honors & Awards'),('service','Academic Service')]:
-        items = [x for x in d[key] if x.get('title') and '[' not in x['title']]
-        if not items:
-            continue
-        columns = {'education': ('Institution / Location', 'Degree / Program', 'Period'), 'experience': ('Position', 'Organization', 'Period'), 'awards': ('Award / Fellowship', 'Organization', 'Year'), 'service': ('Activity', 'Venue / Organization', 'Year')}[key]
-        rows = ''
-        for x in items:
-            row_title, detail = x['title'], x['detail']
-            if key == 'experience' and ' · ' in row_title:
-                row_title, organization = row_title.split(' · ', 1)
-                detail = organization + ' @ South Korea\n' + detail
-            title_html = e(row_title).replace('cum laude', '<i>cum laude</i>')
-            detail_html = e(detail).replace('\n', '<br>')
-            rows += f'<tr><th scope="row">{title_html}</th><td>{detail_html}</td><td class="entry-date">{e(x["dates"])}</td></tr>'
-        headers=''.join(f'<th scope="col">{e(label)}</th>' for label in columns)
-        details+=f'<section id="{key}" class="detail-section"><h2 id="{key}-title">{title}</h2><div class="table-scroll" tabindex="0" role="region" aria-labelledby="{key}-title"><table class="background-table"><thead><tr>{headers}</tr></thead><tbody>{rows}</tbody></table></div></section>'
     academic_bio = e(d.get('academic_bio', ''))
     academic_bio = academic_bio.replace('from POSTECH, advised by', 'from POSTECH, where I worked in the <a href="https://nlp.postech.ac.kr/">NLP Lab</a> under')
     for advisor in d.get('advisors', []):

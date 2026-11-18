@@ -7,7 +7,6 @@ D = {**SITE_D, **SITE_D.get('cv', {})}
 OUT = ROOT / 'dist'
 OUT.mkdir(exist_ok=True)
 e = html.escape
-
 def detail_text(value):
     return e(value).replace('\n', '<br/>').replace('cum laude', '<i>cum laude</i>')
 links = ' '.join(f'<a href="{e(url)}">{e(label)}</a>' for label, url in D['links'].items())
@@ -54,46 +53,67 @@ if '--web-only' in sys.argv:
     print('Built website; existing PDF preserved.')
     sys.exit(0)
 
-# A compact, editable-source PDF CV. Bracketed fields deliberately remain visible.
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, KeepTogether, PageBreak
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.lib import colors
-from reportlab.lib.enums import TA_LEFT
-from reportlab.lib.pagesizes import A4
+# Reference-inspired academic PDF: serif type, monochrome, and aligned dates.
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, KeepTogether, Table, TableStyle, HRFlowable, PageBreak
+from reportlab.lib.styles import ParagraphStyle
+from reportlab.lib.pagesizes import letter
+from reportlab.lib.enums import TA_RIGHT
 
-styles = getSampleStyleSheet()
-styles.add(ParagraphStyle(name='CVName',fontName='Times-Roman',fontSize=29,leading=33,textColor=colors.HexColor('#27333a'),spaceAfter=5))
-styles.add(ParagraphStyle(name='CVBody',fontName='Helvetica',fontSize=9,leading=13,textColor=colors.HexColor('#27333a'),spaceAfter=5))
-styles.add(ParagraphStyle(name='CVSmall',parent=styles['CVBody'],fontSize=8,leading=11,textColor=colors.HexColor('#69767c')))
-styles.add(ParagraphStyle(name='CVSection',fontName='Times-Roman',fontSize=15,leading=19,spaceBefore=13,spaceAfter=7,textColor=colors.HexColor('#176e72')))
-story=[]
-def para(text,sty='CVBody'):
-    return Paragraph(text.replace('–','-').replace('·',' / '),styles[sty])
-story += [para(e(D['name']),'CVName'),para('CURRICULUM VITAE','CVSmall'),para(e(D['role'])+' | '+e(D['affiliation'])+'<br/>'+e(D['email']))]
-story += [para(' &nbsp; | &nbsp; '.join(f'<link href="{e(u)}" color="#176e72">{e(k)}</link>' for k,u in D['links'].items()),'CVSmall'),para('Updated November 2026 / Bracketed fields to be completed','CVSmall')]
-story += [para('Research Interests','CVSection'),para(e('; '.join(D['interests']))+'.'),para('Draft topics based on the publications listed below.','CVSmall')]
-for key,label in [('education','Education'),('experience','Experience')]:
-    story.append(para(label,'CVSection'))
-    for x in D[key]: story.append(para(f'<b>{e(x["title"])}</b> &nbsp; {e(x["dates"])}<br/>{detail_text(x["detail"])}'))
-story.append(para('Manuscripts Under Review','CVSection'))
-for p in D.get('under_review', []):
-    story.append(KeepTogether([para('<b>'+e(p['title'])+'</b>'),para(e(p['authors']).replace('Solee Im','<b>Solee Im</b>'),'CVSmall'),para(e(p['venue'])+' / Under review','CVSmall'),Spacer(1,6)]))
-story.append(para('* Equal contribution (co-first authors) for the manuscripts under review.','CVSmall'))
+styles = {
+    'body': ParagraphStyle('Body', fontName='Times-Roman', fontSize=10.5, leading=13),
+    'name': ParagraphStyle('Name', fontName='Times-Bold', fontSize=19, leading=23),
+    'right': ParagraphStyle('Right', fontName='Times-Roman', fontSize=10.5, leading=13, alignment=TA_RIGHT),
+    'section': ParagraphStyle('Section', fontName='Times-Bold', fontSize=15, leading=18, spaceBefore=17, spaceAfter=10, keepWithNext=True),
+    'paper': ParagraphStyle('Paper', fontName='Times-Roman', fontSize=10.5, leading=13, leftIndent=24, firstLineIndent=-24, spaceAfter=10),
+}
+def para(text, sty='body'):
+    return Paragraph(text.replace('–', '-').replace('—', '-'), styles[sty])
+
+def row(left, right, name=False):
+    t = Table([[para(left, 'name' if name else 'body'), para(right, 'right')]], colWidths=[353, 133], hAlign="LEFT")
+    t.setStyle(TableStyle([('VALIGN',(0,0),(-1,-1),'BOTTOM' if name else 'TOP'),('LEFTPADDING',(0,0),(-1,-1),0),('RIGHTPADDING',(0,0),(-1,-1),0),('TOPPADDING',(0,0),(-1,-1),0),('BOTTOMPADDING',(0,0),(-1,-1),0)]))
+    return t
+
+story = [row(e(D['name']), e(D['role'])+' @ KT', True), Spacer(1,5), HRFlowable(width='100%', thickness=0.8, color='black'), Spacer(1,5)]
+contact = '<link href="https://solee0022.github.io">solee0022.github.io</link>'
+if D.get('email') and '[' not in D['email']:
+    contact = e(D['email'])+' &nbsp; | &nbsp; '+contact
+contact += ' &nbsp; | &nbsp; '+' &nbsp; | &nbsp; '.join(f'<link href="{e(u)}">{e(k)}</link>' for k,u in D['links'].items())
+story += [para(contact), Spacer(1,10), para('Employment','section')]
+for x in D['experience']:
+    role, _, org = x['title'].partition(' · ')
+    story.append(KeepTogether([row('<b>'+e(org or role)+'</b>', e(x['dates'])), para('<i>'+e(role)+'</i>'), para(detail_text(x['detail'])), Spacer(1,12)]))
+story.append(para('Education','section'))
+for x in D['education']:
+    story.append(KeepTogether([row('<b>'+e(x['title'])+'</b>',e(x['dates'])),para(detail_text(x['detail'])),Spacer(1,12)]))
+for key,label in [('awards','Honors and Awards')]:
+    items=[x for x in D[key] if '[' not in x['title']]
+    if items:
+        story.append(para(label,'section'))
+        for x in items:
+            story.append(para(e(x['title'])+' - '+e(x['detail'])+' ('+e(x['dates'])+')'))
+story += [para('Research Interests','section'),para(e('; '.join(D['interests']))+'.')]
 story.append(PageBreak())
-story.append(para('Conference Publications','CVSection'))
+story.append(para('Conference Publications','section'))
 for i,p in enumerate(D['publications'],1):
-    title=f'<b>{i}. {e(p["title"])}</b>'
     authors=e(p['authors']).replace('Solee Im','<b>Solee Im</b>')
-    venue=e(p['venue'])+', '+p['year']+(' / Poster' if p.get('status') == 'Poster' else '')+(' / pp. '+p['pages'] if p['pages'] else '')
-    story.append(KeepTogether([para(title),para(authors,'CVSmall'),para(f'{venue}. <link href="{e(p["url"])}" color="#176e72">Publication link</link>','CVSmall'),Spacer(1,5)]))
-story.append(para('* Equal contribution (co-first authors).','CVSmall'))
-for key,label in [('awards','Honors & Awards'),('service','Academic Service')]:
-    story.append(para(label,'CVSection'))
-    for x in D[key]: story.append(para(f'{e(x["title"])} / {detail_text(x["detail"])} / {e(x["dates"])}'))
+    title=f'<link href="{e(p["url"])}">{e(p["title"])}</link>'
+    venue='<i>'+e(p['venue'])+'</i>, '+p['year']+(' (Poster)' if p.get('status')=='Poster' else '')
+    story.append(para(f'[{i}] {authors}. &quot;{title}.&quot; {venue}.','paper'))
+story.append(para('* Equal contribution (co-first authors).'))
+story.append(para('Manuscripts Under Review','section'))
+for i,p in enumerate(D.get('under_review',[]),1):
+    authors=e(p['authors']).replace('Solee Im','<b>Solee Im</b>')
+    story.append(para(f'[U{i}] {authors}. &quot;{e(p["title"])}.&quot; Under review, <i>{e(p["venue"])}</i>.','paper'))
+story.append(para('* Equal contribution (co-first authors).'))
+items=[x for x in D['service'] if '[' not in x['title']]
+if items:
+    story.append(para('Academic Service','section'))
+    for x in items:
+        story.append(para(e(x['title'])+' - '+e(x['detail'])+' ('+e(x['dates'])+')'))
 def footer(c,doc):
-    c.setFont('Helvetica',7);c.setFillColor(colors.HexColor('#69767c'))
-    c.drawString(46,26,'Solee Im | CV template | Publication sources: DBLP and ACL Anthology')
-    c.drawRightString(A4[0]-46,26,str(doc.page))
-doc=SimpleDocTemplate(str(OUT/'Solee_Im_CV.pdf'),pagesize=A4,rightMargin=46,leftMargin=46,topMargin=34,bottomMargin=40,title='Solee Im — Curriculum Vitae (Template)',author='Solee Im')
+    c.setFont('Times-Roman',10)
+    c.drawCentredString(letter[0]/2,26,str(doc.page))
+doc=SimpleDocTemplate(str(OUT/'Solee_Im_CV.pdf'),pagesize=letter,rightMargin=57,leftMargin=57,topMargin=51,bottomMargin=48,title='Solee Im - Curriculum Vitae',author='Solee Im')
 doc.build(story,onFirstPage=footer,onLaterPages=footer)
-print('Built homepage, online CV, and PDF CV.')
+print('Built homepage, online CV, and reference-styled PDF CV.')

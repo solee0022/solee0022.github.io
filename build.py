@@ -5,6 +5,7 @@ ROOT = Path(__file__).resolve().parent
 SITE_D = json.loads((ROOT / 'profile.json').read_text())
 D = {**SITE_D, **SITE_D.get('cv', {})}
 D['links'] = {k: v for k, v in D['links'].items() if k not in ('DBLP', 'ORCID')}
+D['links']['GitHub'] = 'https://github.com/solee0022'
 D['service'] = [x for x in D['service'] if x.get('title') and '[' not in x['title']]
 OUT = ROOT / 'dist'
 OUT.mkdir(exist_ok=True)

@@ -24,6 +24,12 @@ def papers():
     return '\n'.join(result)
 
 def entries(key):
+    if key == 'experience':
+        rows = []
+        for x in D[key]:
+            role, _, organization = x['title'].partition(' · ')
+            rows.append('<div class="entry"><div><strong style="font-weight:650">'+e(organization)+'</strong> @ South Korea<br><em>'+e(role)+'</em><p>'+detail_text(x['detail'])+'</p></div><time>'+e(x['dates'])+'</time></div>')
+        return ''.join(rows)
     return ''.join(f'<div class="entry"><div><strong>{e(x["title"])}</strong><p>{detail_text(x["detail"])}</p></div><time>{e(x["dates"])}</time></div>' for x in D[key])
 
 def additional_section(key, title):
@@ -37,7 +43,7 @@ def additional_section(key, title):
 review_html = additional_section('under_review', 'Manuscripts Under Review').replace('</section>', '<p class="note">* Equal contribution (co-first authors).</p></section>')
 poster_html = ''
 
-sections = ''.join(f'<section id="{key}"><div class="section-head"><h2>{label}</h2>{('<span>To be completed</span>' if any('[' in x['title'] for x in D[key]) else '')}</div>{entries(key)}</section>' for key, label in [('experience','Experience'),('education','Education'),('awards','Honors & Awards'),('service','Academic Service')])
+sections = ''.join(f'<section id="{key}"><div class="section-head"><h2>{label}</h2>{('<span>To be completed</span>' if any('[' in x['title'] for x in D[key]) else '')}</div>{entries(key)}</section>' for key, label in [('experience','Employment'),('education','Education'),('awards','Honors & Awards'),('service','Academic Service')])
 head = '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Solee Im — academic homepage, publications, and curriculum vitae."><link rel="stylesheet" href="style.css">'
 from home import render
 (OUT / 'index.html').write_text(render(SITE_D))

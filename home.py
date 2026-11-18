@@ -6,24 +6,20 @@ def render(d):
     d['links'] = {k: v for k, v in d['links'].items() if k not in ('DBLP', 'ORCID')}
     d['links']['GitHub'] = 'https://github.com/solee0022'
     d['links']['LinkedIn'] = 'https://www.linkedin.com/in/solee-im-414614225/'
-    def figure(p):
-        if p.get('image'):
-            license_link = f' · <a href="{e(p["image_license"])}">CC BY 4.0</a>' if p.get('image_license') else ''
-            source = p.get('image_source') or p.get('url')
-            source_link = f' <a href="{e(source)}">Original paper ↗</a>' if source else ''
-            credit = f'<details class="figure-credit"><summary>Figure source</summary><p>{e(p.get("image_credit", ""))}{source_link}{license_link}</p></details>'
-            return f'<figure class="paper-figure filled"><a class="figure-zoom" href="{e(p["image"])}" target="_blank" rel="noopener" aria-label="View full-size figure for {e(p["title"])}"><img src="{e(p["image"])}" alt="{e(p.get("image_alt") or p["title"])}" loading="lazy"><span class="zoom-hint" aria-hidden="true">↗</span></a><figcaption>{credit}</figcaption></figure>'
-        return ''
-
     def paper(p):
-        title=e(p['title']); authors=e(p['authors']).replace('Solee Im','<strong>Solee Im</strong>')
-        title=f'<a href="{e(p["url"])}">{title}</a>' if p.get('url') else title
-        status=p.get('year', p.get('status',''))
-        if p.get('status') == 'Poster': status += ' · Poster'
-        venue=e(p['venue'])
-        action=f'<a class="paper-link" href="{e(p["url"])}">Paper <span aria-hidden="true">↗</span></a>' if p.get('url') else ''
-        layout = '' if p.get('image') else ' style="grid-template-columns:1fr"'
-        return f'<article class="paper-row"{layout}>{figure(p)}<div class="paper-content"><div class="paper-meta"><span class="badge">{e(status)}</span><span>{venue}</span></div><h4>{title}</h4><p class="authors">{authors}</p>{action}</div></article>'
+        title = e(p['title'])
+        authors = e(p['authors']).replace('Solee Im', '<strong>Solee Im</strong>')
+        if p.get('url'):
+            title = '<a href="'+e(p['url'])+'">'+title+'</a>'
+        year = p.get('year', p['venue'].split()[-1])
+        venue = p['venue']
+        labels = {'UIST Adjunct Proceedings': 'UIST', 'Findings of ACL': 'ACL Findings'}
+        badge = labels.get(venue, venue.removesuffix(' '+year))
+        venue_line = venue if venue.endswith(year) else venue+', '+year
+        if p.get('status'):
+            venue_line += ' · '+p['status']
+        action = '<a class="paper-link" href="'+e(p['url'])+'">Paper ↗</a>' if p.get('url') else ''
+        return '<article class="paper-row text-publication"><div class="publication-label"><span class="badge">'+e(badge)+'</span></div><div class="paper-content"><div class="paper-meta"><span>'+e(year)+'</span><span>'+e(p.get('tag', ''))+'</span></div><h4>'+title+'</h4><p class="authors">'+authors+'</p><p class="publication-venue">'+e(venue_line)+'</p>'+action+'</div></article>'
 
     groups=''
     for key,title in [('under_review','Manuscripts Under Review'),('publications','Conference Publications')]:
@@ -77,4 +73,4 @@ def render(d):
         social += '<a style="'+row_style+'" href="mailto:'+e(d['email'])+'">'+contact_icon('email')+e(d['email'])+'</a>'
     for label, url in d['links'].items():
         social += '<a style="'+row_style+'" href="'+e(url)+'">'+contact_icon(label)+e('solee0022' if label == 'GitHub' else label)+'</a>'
-    return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Solee Im — research, publications, and curriculum vitae."><title>Solee Im | Research</title><script src="theme.js"></script><link rel="stylesheet" href="home.css"></head><body id="top"><a class="skip" href="#main">Skip to content</a><header class="site-header"><div class="header-inner"><a class="wordmark" href="#top">Solee Im<span class="wordmark-dot">.</span></a><nav aria-label="Main navigation"><a href="#about">About</a>{news_nav}<a href="#publications">Publications</a><a href="cv.html">CV <span aria-hidden="true">↗</span></a></nav><button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><span class="theme-icon" aria-hidden="true">☾</span><span class="theme-label">Dark</span></button></div></header><div class="layout"><aside class="profile" aria-label="Researcher profile"><div class="portrait" style="height:auto;display:block;background:transparent;border:0"><img src="assets/solee-profile-v2.jpg" alt="Solee Im" style="display:block;width:100%;height:auto"></div><h1>{e(d['name'])}</h1><p class="role">{e(d['role'])}<br>{e(d['affiliation'])}</p><div class="social" style="flex-direction:column;align-items:flex-start;gap:8px">{social}</div></aside><main id="main"><section id="about" class="about-section"><p class="eyebrow">RESEARCH & PUBLICATIONS</p><h2>About me</h2><p class="intro">I am an AI Researcher in the SoundAI Team at KT.</p>{about_html}{academic_html}</section>{news_html}<section id="publications"><div class="section-heading"><h2>Publications</h2><a href="{e(d['links']['Google Scholar'])}">Google Scholar ↗</a></div>{groups}</section>{details}<footer><span>© 2026 Solee Im</span></footer></main></div></body></html>'''
+    return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Solee Im — research, publications, and curriculum vitae."><title>Solee Im | Research</title><script src="theme.js"></script><link rel="stylesheet" href="home.css"><style>.text-publication{{grid-template-columns:100px minmax(0,1fr);gap:22px;padding:24px 0}}.publication-label{{padding-top:4px}}.publication-label .badge{{display:inline-block;white-space:normal;text-align:center;line-height:1.4;padding:5px 8px;font-size:13px}}.text-publication .paper-meta{{font-size:12px;letter-spacing:.3px;flex-wrap:wrap;gap:5px 12px;margin-bottom:6px}}.text-publication h4{{margin-bottom:6px}}.text-publication .authors{{margin-bottom:3px}}.publication-venue{{font-size:16px;font-style:italic;color:var(--muted);margin:0 0 10px}}.text-publication .paper-link{{border-radius:3px;font-size:13px;padding:1px 10px}}@media(max-width:600px){{.text-publication{{grid-template-columns:1fr;gap:8px}}.publication-label{{padding-top:0}}}}</style></head><body id="top"><a class="skip" href="#main">Skip to content</a><header class="site-header"><div class="header-inner"><a class="wordmark" href="#top">Solee Im<span class="wordmark-dot">.</span></a><nav aria-label="Main navigation"><a href="#about">About</a>{news_nav}<a href="#publications">Publications</a><a href="cv.html">CV <span aria-hidden="true">↗</span></a></nav><button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><span class="theme-icon" aria-hidden="true">☾</span><span class="theme-label">Dark</span></button></div></header><div class="layout"><aside class="profile" aria-label="Researcher profile"><div class="portrait" style="height:auto;display:block;background:transparent;border:0"><img src="assets/solee-profile-v2.jpg" alt="Solee Im" style="display:block;width:100%;height:auto"></div><h1>{e(d['name'])}</h1><p class="role">{e(d['role'])}<br>{e(d['affiliation'])}</p><div class="social" style="flex-direction:column;align-items:flex-start;gap:8px">{social}</div></aside><main id="main"><section id="about" class="about-section"><p class="eyebrow">RESEARCH & PUBLICATIONS</p><h2>About me</h2><p class="intro">I am an AI Researcher in the SoundAI Team at KT.</p>{about_html}{academic_html}</section>{news_html}<section id="publications"><div class="section-heading"><h2>Publications</h2><a href="{e(d['links']['Google Scholar'])}">Google Scholar ↗</a></div>{groups}</section>{details}<footer><span>© 2026 Solee Im</span></footer></main></div></body></html>'''

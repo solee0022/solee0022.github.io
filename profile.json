@@ -27,7 +27,7 @@
       "image_credit": "Figure 1, Yeonsu Kim, Solee Im, Jihyun Lee, Wonjun Lee (2026). CC BY 4.0; resized for display.",
       "image_license": "https://creativecommons.org/licenses/by/4.0/",
       "year": "2026",
-      "tag": "PERSONALIZED VOICE ASSISTANTS",
+      "tag": "PERSONALIZED SPEECH RECOGNITION",
       "pages": ""
     },
     {
@@ -120,7 +120,7 @@
       "image": "assets/knowledge-drift.png",
       "image_alt": "WEBARENA-DRIFT pipeline: drift construction, application, and evaluation of memory staleness and utility.",
       "image_credit": "Figure 1: WEBARENA-DRIFT pipeline. From the author-provided manuscript.",
-      "tag": "GUI AGENT MEMORY"
+      "tag": "GUI AGENTS WITH MEMORY"
     },
     {
       "title": "Wake Words as Pronunciation References: Balancing Everyday Usability and Personalized Recognition of Romanized Foreign Name",

@@ -28,11 +28,11 @@ def render(d):
         columns = {'education': ('Institution / Location', 'Degree / Program', 'Period'), 'experience': ('Position', 'Organization', 'Period'), 'awards': ('Award / Fellowship', 'Organization', 'Year'), 'service': ('Activity', 'Venue / Organization', 'Year')}[key]
         rows = ''
         for x in d[key]:
-            title, detail = x['title'], x['detail']
-            if key == 'experience' and ' · ' in title:
-                title, organization = title.split(' · ', 1)
+            row_title, detail = x['title'], x['detail']
+            if key == 'experience' and ' · ' in row_title:
+                row_title, organization = row_title.split(' · ', 1)
                 detail = organization + ' @ South Korea\n' + detail
-            title_html = e(title).replace('cum laude', '<i>cum laude</i>')
+            title_html = e(row_title).replace('cum laude', '<i>cum laude</i>')
             detail_html = e(detail).replace('\n', '<br>')
             rows += f'<tr><th scope="row">{title_html}</th><td>{detail_html}</td><td class="entry-date">{e(x["dates"])}</td></tr>'
         headers=''.join(f'<th scope="col">{e(label)}</th>' for label in columns)

@@ -28,7 +28,7 @@ def entries(key):
         rows = []
         for x in D[key]:
             role, _, organization = x['title'].partition(' · ')
-            rows.append('<div class="entry"><div><strong style="font-weight:650">'+e(organization)+'</strong> @ South Korea<br><em>'+e(role)+'</em><p>'+detail_text(x['detail'])+'</p></div><time>'+e(x['dates'])+'</time></div>')
+            rows.append('<div class="entry"><div><strong style="font-weight:650">'+e(organization)+'</strong> @ South Korea<p><em>'+e(role)+',</em> '+detail_text(x['detail'])+'</p></div><time>'+e(x['dates'])+'</time></div>')
         return ''.join(rows)
     return ''.join(f'<div class="entry"><div><strong>{e(x["title"])}</strong><p>{detail_text(x["detail"])}</p></div><time>{e(x["dates"])}</time></div>' for x in D[key])
 
@@ -92,7 +92,7 @@ contact += ' &nbsp; | &nbsp; '+' &nbsp; | &nbsp; '.join(f'<link href="{e(u)}">{e
 story += [para(e(D['location'])), para(contact), Spacer(1,10), para('Employment','section')]
 for x in D['experience']:
     role, _, org = x['title'].partition(' · ')
-    story.append(KeepTogether([row('<b>'+e(org or role)+'</b> @ South Korea', e(x['dates'])), para('<i>'+e(role)+'</i>'), para(detail_text(x['detail'])), Spacer(1,12)]))
+    story.append(KeepTogether([row('<b>'+e(org or role)+'</b> @ South Korea', e(x['dates'])), para('<i>'+e(role)+',</i> '+detail_text(x['detail'])), Spacer(1,12)]))
 story.append(para('Education','section'))
 for x in D['education']:
     story.append(KeepTogether([row('<b>'+e(x['title'])+'</b>',e(x['dates'])),para(detail_text(x['detail'])),Spacer(1,12)]))

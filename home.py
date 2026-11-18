@@ -44,7 +44,7 @@ def render(d):
             'date': conference_months[(venue, publication['year'])]+' '+publication['year'],
             'year': publication['year'],
             'url': publication['url'],
-            'text': ('One poster presented at ' if publication.get('status') == 'Poster' else 'One paper presented at ')+venue+' '+publication['year'],
+            'text': ('One poster accepted at ' if publication.get('status') == 'Poster' else 'One paper accepted at ')+venue+' '+publication['year'],
         })
     month_numbers = {month: i for i, month in enumerate(['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May.', 'Jun.', 'Jul.', 'Aug.', 'Sep.', 'Oct.', 'Nov.', 'Dec.'], 1)}
     news_items = sorted(news_items + publication_news, key=lambda item: (int(item['date'][-4:]), month_numbers[item['date'].split()[0]]), reverse=True)

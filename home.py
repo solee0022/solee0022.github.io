@@ -36,16 +36,18 @@ def render(d):
         {'date': 'Aug. 2025', 'text': 'I received my master’s degree in Artificial Intelligence from POSTECH.'},
         {'date': 'Jul. 2025', 'text': 'I joined the SoundAI Team at KT as an AI Researcher.'},
     ])
+    conference_months = {('UIST', '2026'): 'Nov.', ('Findings of ACL', '2025'): 'Jul.', ('IJCNLP-AACL', '2025'): 'Dec.', ('Interspeech', '2025'): 'Aug.', ('NAACL', '2025'): 'Apr.'}
     publication_news = []
     for publication in d['publications']:
         venue = 'UIST' if publication.get('status') == 'Poster' else publication['venue']
         publication_news.append({
-            'date': publication['year'],
+            'date': conference_months[(venue, publication['year'])]+' '+publication['year'],
             'year': publication['year'],
             'url': publication['url'],
-            'text': ('One poster accepted at ' if publication.get('status') == 'Poster' else 'One paper accepted at ')+venue+' '+publication['year'],
+            'text': ('One poster presented at ' if publication.get('status') == 'Poster' else 'One paper presented at ')+venue+' '+publication['year'],
         })
-    news_items = sorted(news_items + publication_news, key=lambda item: item.get('year', item['date'][-4:]), reverse=True)
+    month_numbers = {month: i for i, month in enumerate(['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May.', 'Jun.', 'Jul.', 'Aug.', 'Sep.', 'Oct.', 'Nov.', 'Dec.'], 1)}
+    news_items = sorted(news_items + publication_news, key=lambda item: (int(item['date'][-4:]), month_numbers[item['date'].split()[0]]), reverse=True)
     news_rows = ''
     for item in news_items:
         content = e(item['text'])
